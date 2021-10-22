@@ -1,10 +1,10 @@
-package org.muguang.mybatisplusdemo;
+package org.muguang;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MybatisPlusApplicationTests {
+class ApplicationTests {
 
     @Test
     void contextLoads() throws Exception {
