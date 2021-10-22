@@ -1,0 +1,46 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'org.muguang'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.baomidou:mybatis-plus-boot-starter:3.4.3.1'
+    implementation 'com.baomidou:mybatis-plus-generator:3.4.1'
+    implementation 'org.apache.velocity:velocity-engine-core:2.3'
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+    runtimeOnly 'mysql:mysql-connector-java'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task generate(type: JavaExec) {
+
+    String appName = "demo"
+    String[] tables = ["airline","airplane","airplane_type","airport","airport_geo","airport_reachable","booking","employee","flight","flight_log","flightschedule","passenger","passengerdetails","weatherdata"]
+    String dbUrl = "jdbc:mysql://localhost:3308/airportdb?useUnicode=true&characterEncoding=utf8"
+    String dbUser = "root"
+    String dbPwd = "123456"
+
+    group = "Generator"
+    description = "mybatis plus generator"
+    classpath = sourceSets.main.runtimeClasspath
+    main = "org.muguang.Generator"
+    args = [project.rootDir, appName, "base", dbUrl, dbUser, dbPwd, tables.join(",")]
+}
